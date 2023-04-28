@@ -26,7 +26,7 @@ void Frame::render() {
 };
 
 bool Frame::draw(int x, int y, string object) {
-    if (content[x][y] != " ") {
+    if (content[x][y] == " ") {
         content[x][y] = object;
         return true;
     }
