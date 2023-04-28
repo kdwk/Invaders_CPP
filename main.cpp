@@ -13,9 +13,9 @@ void test(Frame f) {
 
 int main() {
     clear();
-    cout << "Cleared";
     Frame f;
     f.draw(3,NUM_ROWS-1,"A");
-    Later render1(1000, false, &test, f); //TODO: doesn't work
+    Later render1(1000, false, &test, f);
+    cout << "success" << endl;
     return 0;
 }
