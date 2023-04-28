@@ -4,8 +4,6 @@
 #include <bits/stdc++.h>
 
 class Frame {
-    int num_cols;
-    int num_rows;
     std::vector<std::vector<std::string>> content;
     public:
         Frame();
