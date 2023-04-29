@@ -3,24 +3,31 @@
 
 #include <bits/stdc++.h>
 
+enum Health {
+    alive,
+    dead
+};
+
 struct Invader {
     int x;
     int y;
-    bool alive;
+    Health stat;
 };
 
-enum direction {
+enum Direction {
     left,
-    right
+    right,
+    down
 };
 
 class Army {
     std::vector<Invader> army;
-    int direction;
-    bool alive;
+    Direction vec;
     // TODO: add a move_timer
     public:
         Army();
+        bool are_all_dead();
+        bool reached_bottom();
 };
 
 #endif
