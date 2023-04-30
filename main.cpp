@@ -11,9 +11,10 @@ void test(Frame f) {
     f.render();
 }
 
+Frame f;
+
 int main() {
     clear();
-    Frame f;
     f.draw(3,NUM_ROWS-1,"A");
     Later render1(1000, false, &test, f);
     cout << "success" << endl;
