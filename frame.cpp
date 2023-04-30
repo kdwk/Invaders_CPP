@@ -17,9 +17,12 @@ Frame::Frame() {
 
 void Frame::composite() {
     // TODO
+    // Everyone do csd
+    // Add status bar
 }
 
 void Frame::render() {
+    // TODO: change to flush mechanism instead of clear to eliminate flickering
     clear();
     for (int y=0; y<NUM_ROWS; y++){
         for (int x=0; x<NUM_COLS; x++) {

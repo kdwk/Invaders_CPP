@@ -15,8 +15,9 @@ Frame f;
 
 int main() {
     clear();
-    f.draw(3,NUM_ROWS-1,"A");
-    Later render1(1000, false, &test, f);
-    cout << "success" << endl;
+    // f.draw(3,NUM_ROWS-1,"A");
+    // Later render1(1000, false, &test, f);
+    // cout << "success" << endl;
+    // TODO: gameloop
     return 0;
 }
