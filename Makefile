@@ -9,10 +9,13 @@ frame.o: frame.cpp frame.h
 invader.o: invader.cpp invader.h
 	g++ -c invader.cpp
 
+endgame.o: endgame.cpp endgame.h
+	g++ -c endgame.cpp
+
 invaders.o: main.cpp
 	g++ -c main.cpp
 
-invaders: clear.o frame.o invader.o main.o
+invaders: clear.o frame.o invader.o endgame.o main.o
 	g++ clear.o frame.o main.o -o invaders
 
 clean:
