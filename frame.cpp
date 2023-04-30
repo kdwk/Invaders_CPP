@@ -15,6 +15,10 @@ Frame::Frame() {
     }
 };
 
+void Frame::composite() {
+    // TODO
+}
+
 void Frame::render() {
     clear();
     for (int y=0; y<NUM_ROWS; y++){
@@ -25,11 +29,3 @@ void Frame::render() {
     }
 };
 
-bool Frame::draw(int x, int y, string object) {
-    bool isValidCoordinate = x>=0 && x<NUM_COLS && y>=0 && y<NUM_ROWS;
-    if (isValidCoordinate && content[x][y] == " ") {
-        content[x][y] = object;
-        return true;
-    }
-    return false;
-}

@@ -5,10 +5,10 @@
 
 class Frame {
     std::vector<std::vector<std::string>> content;
+    void composite();
     public:
         Frame();
         void render();
-        bool draw(int x, int y, std::string content);
 };
 
 #endif
