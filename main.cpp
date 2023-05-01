@@ -14,6 +14,13 @@ using namespace std;
 //     }
 // }
 
+void update_invaders(Army &invaders) {
+    while (true) {
+        sleep(1);
+        invaders.update();
+    }
+}
+
 int main() {
     clear();
     // f.draw(3,NUM_ROWS-1,"A");
@@ -23,7 +30,7 @@ int main() {
     Army invaders;
     while (true) {
         Frame f;
-        invaders.update(f);
+        thread update_army(&update_invaders, invaders);
         
     }
     return 0;

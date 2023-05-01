@@ -44,16 +44,16 @@ bool Army::reached_right_wall() {
     return false;
 }
 
-void Army::csd(Frame &f) {
-    for (Invader invader: army) {
-        switch (sym) {
-            case Symbol::plus:
-                f.content[invader.x][invader.y] = "+";
-            case Symbol::cross:
-                f.content[invader.x][invader.y] = "x";
-        }
-    }
-}
+// void Army::csd(Frame &f) {
+//     for (Invader invader: army) {
+//         switch (sym) {
+//             case Symbol::plus:
+//                 f.content[invader.x][invader.y] = "+";
+//             case Symbol::cross:
+//                 f.content[invader.x][invader.y] = "x";
+//         }
+//     }
+// }
 
 Army::Army() {
     for (int x=1; x<NUM_COLS-2; x++) {
@@ -70,7 +70,7 @@ Army::Army() {
 }
 
 
-void Army::update(Frame &f) {
+void Army::update() {
     // If army all dead, trigger win
     if (are_all_dead()) {win();}
     if (vec == Direction::left) {
@@ -93,7 +93,6 @@ void Army::update(Frame &f) {
         if (reached_left_wall()) {vec = Direction::right;}
         else if (reached_right_wall()) {vec = Direction::left;}
     }
-    csd(f);
     switch (sym) {
         case Symbol::plus:
             sym = Symbol::cross;

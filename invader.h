@@ -35,10 +35,10 @@ class Army {
     bool reached_bottom();
     bool reached_left_wall();
     bool reached_right_wall();
-    void csd(Frame &f);
+    // void csd(Frame &f);
     public:
         Army();
-        void update(Frame &f);
+        void update();
 };
 
 #endif
