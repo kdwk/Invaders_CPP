@@ -4,9 +4,9 @@
 #include <bits/stdc++.h>
 
 class Frame {
-    std::vector<std::vector<std::string>> content;
     void composite();
     public:
+        std::vector<std::vector<std::string>> content;
         Frame();
         void render();
 };

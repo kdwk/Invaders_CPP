@@ -3,15 +3,16 @@
 #include "constants.h"
 #include "clear.h"
 #include "frame.h"
+#include "invader.h"
 
 
 using namespace std;
 
-void test(Frame f) {
-    f.render();
-}
+// void get_input() {
+//     while (true) {
 
-Frame f;
+//     }
+// }
 
 int main() {
     clear();
@@ -19,5 +20,11 @@ int main() {
     // Later render1(1000, false, &test, f);
     // cout << "success" << endl;
     // TODO: gameloop
+    Army invaders;
+    while (true) {
+        Frame f;
+        invaders.update(f);
+        
+    }
     return 0;
 }

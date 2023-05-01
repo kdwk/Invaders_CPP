@@ -6,8 +6,6 @@
 
 using namespace std;
 
-extern Frame f;
-
 bool Army::are_all_dead() {
     bool all_dead = true;
     for (Invader invader: army) {
@@ -46,11 +44,13 @@ bool Army::reached_right_wall() {
     return false;
 }
 
-void Army::csd() {
+void Army::csd(Frame &f) {
     for (Invader invader: army) {
         switch (sym) {
-            case Symbol::plus: f.content[invader.x][invader.y] = '+'; // TODO
-            case Symbol::cross: f.content[invader.x][invader.y] = 'x'; // TODO
+            case Symbol::plus:
+                f.content[invader.x][invader.y] = "+";
+            case Symbol::cross:
+                f.content[invader.x][invader.y] = "x";
         }
     }
 }
@@ -66,11 +66,11 @@ Army::Army() {
     }
     vec = Direction::left;
     sym = Symbol::plus;
-    // TODO: hook up update mechanism
+    // TODO: hook up update mechanism...?
 }
 
 
-void Army::update() {
+void Army::update(Frame &f) {
     // If army all dead, trigger win
     if (are_all_dead()) {win();}
     if (vec == Direction::left) {
@@ -92,5 +92,12 @@ void Army::update() {
         if (reached_bottom()) {lose();}
         if (reached_left_wall()) {vec = Direction::right;}
         else if (reached_right_wall()) {vec = Direction::left;}
+    }
+    csd(f);
+    switch (sym) {
+        case Symbol::plus:
+            sym = Symbol::cross;
+        case Symbol::cross:
+            sym = Symbol::plus;
     }
 }
