@@ -2,7 +2,6 @@
 #define FRAME
 
 #include <bits/stdc++.h>
-#include "invader.h"
 
 class Frame {
     void composite();

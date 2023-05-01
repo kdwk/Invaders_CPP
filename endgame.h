@@ -3,8 +3,14 @@
 
 #include <bits/stdc++.h>
 
-void win();
+void w();
 
-void lose();
+void l();
+
+enum Endgame {
+    win,
+    lose,
+    cont
+};
 
 #endif

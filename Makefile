@@ -16,7 +16,7 @@ invaders.o: main.cpp
 	g++ -c main.cpp
 
 invaders: clear.o frame.o invader.o endgame.o main.o
-	g++ clear.o frame.o main.o -o invaders
+	g++ clear.o frame.o invader.o endgame.o main.o -o invaders
 
 clean:
 	rm -f invaders *.o

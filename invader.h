@@ -4,6 +4,7 @@
 #include <bits/stdc++.h>
 #include "frame.h"
 #include "drawable_parent.h"
+#include "endgame.h"
 
 enum Health {
     alive,
@@ -39,7 +40,7 @@ class Army : public Drawable{
     // void csd(Frame &f);
     public:
         Army();
-        void update();
+        Endgame update();
         void draw(Frame &f);
 };
 

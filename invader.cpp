@@ -59,6 +59,7 @@ bool Army::reached_right_wall() {
 Army::Army() {
     for (int x=1; x<NUM_COLS-2; x++) {
         for (int y=1; y<9; y++) {
+            if (army.size() >= 140) {break;}
             int decision = rand()%2;
             if (decision) {
                 army.push_back(Invader{x,y,alive});
@@ -71,9 +72,19 @@ Army::Army() {
 }
 
 
-void Army::update() {
+Endgame Army::update() {
+    // Test win
+    for (Invader invader: army) {
+        invader.stat = Health::dead;
+    }
     // If army all dead, trigger win
-    if (are_all_dead()) {win();}
+    if (are_all_dead()) {return Endgame::win;}
+    switch (sym) {
+        case Symbol::plus:
+            sym = Symbol::cross;
+        case Symbol::cross:
+            sym = Symbol::plus;
+    }
     if (vec == Direction::left) {
         // Move to the left by one
         // If to the left wall set next move as down
@@ -90,16 +101,12 @@ void Army::update() {
         // If at right wall set next move as left
         // If reached the bottom, trigger lose
         for (Invader &invader: army) {invader.y += 1;}
-        if (reached_bottom()) {lose();}
+        if (reached_bottom()) {return Endgame::lose;}
         if (reached_left_wall()) {vec = Direction::right;}
         else if (reached_right_wall()) {vec = Direction::left;}
     }
-    switch (sym) {
-        case Symbol::plus:
-            sym = Symbol::cross;
-        case Symbol::cross:
-            sym = Symbol::plus;
-    }
+    if (reached_bottom()) {return Endgame::lose;}
+    return Endgame::cont;
 }
 
 void Army::draw(Frame &f) {

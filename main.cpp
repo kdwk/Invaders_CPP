@@ -5,6 +5,7 @@
 #include "frame.h"
 #include "invader.h"
 #include "drawable_parent.h"
+#include "endgame.h"
 
 
 using namespace std;
@@ -15,11 +16,35 @@ using namespace std;
 //     }
 // }
 
-void update_invaders(Army &invaders) {
+Endgame state = Endgame::cont;
+mutex state_mutex;
+queue<Endgame> myqueue;
+
+Endgame update_invaders(Army &invaders) {
     while (true) {
         this_thread::sleep_for(chrono::milliseconds(1000));
-        invaders.update();
+        switch (invaders.update()) {
+            case Endgame::cont:
+                cout << "Cont";
+                int a; // Do nothing, but idk how to actually do nothing
+            case Endgame::lose:
+                cout << "Lose";
+                state = Endgame::lose;
+                state_mutex.lock();
+                myqueue.push(state);
+                state_mutex.unlock();
+            case Endgame::win:
+                cout << "Win";
+                state = Endgame::win;
+                state_mutex.lock();
+                myqueue.push(state);
+                state_mutex.unlock();
+        }
     }
+}
+
+void test() {
+    w();
 }
 
 int main() {
@@ -29,21 +54,36 @@ int main() {
     // cout << "success" << endl;
     // TODO: gameloop
     Army invaders;
-    thread update_army(&update_invaders, invaders);
-    while (true) {
+    thread update_army(&update_invaders, ref(invaders));
+    state_mutex.lock();
+    while (myqueue.empty()) {
+        state_mutex.unlock();
         Frame f;
         // Get user input
         
         // Update player
 
         // Draw and render
-        vector<Drawable*> drawables = {&invaders};
-        for (Drawable* drawable: drawables) {
-            drawable->draw(f);
-        }
+        // vector<Drawable*> drawables = {&invaders};
+        // // for (Drawable* drawable: drawables) {
+        // //     drawable->draw(f);
+        // // }
+        invaders.draw(f);
         f.render();
         // Ensure this is not too fast
         this_thread::sleep_for(chrono::milliseconds(1));
+        state_mutex.lock();
     }
+    cout << "Out of while loop";
+    Endgame result = myqueue.front();
+    switch (result) {
+        case Endgame::lose:
+            l();
+        case Endgame::win:
+            w();
+        default:
+            cout << "What??" << endl;
+    }
+    update_army.join();
     return 0;
 }
