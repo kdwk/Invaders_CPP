@@ -3,6 +3,7 @@
 #include "constants.h"
 #include "later.h"
 #include "endgame.h"
+#include "frame.h"
 
 using namespace std;
 
@@ -98,5 +99,18 @@ void Army::update() {
             sym = Symbol::cross;
         case Symbol::cross:
             sym = Symbol::plus;
+    }
+}
+
+void Army::draw(Frame &f) {
+    switch (sym) {
+        case Symbol::plus:
+            for (Invader invader: army) {
+                f.content[invader.x][invader.y] = "+";
+            }
+        case Symbol::cross:
+            for (Invader invader: army) {
+                f.content[invader.x][invader.y] = "x";
+            }
     }
 }

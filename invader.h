@@ -3,6 +3,7 @@
 
 #include <bits/stdc++.h>
 #include "frame.h"
+#include "drawable_parent.h"
 
 enum Health {
     alive,
@@ -26,7 +27,7 @@ enum Direction {
     down
 };
 
-class Army {
+class Army : public Drawable{
     std::vector<Invader> army;
     Direction vec;
     int move_timer_value;
@@ -39,6 +40,7 @@ class Army {
     public:
         Army();
         void update();
+        void draw(Frame &f);
 };
 
 #endif

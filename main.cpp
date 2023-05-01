@@ -4,6 +4,7 @@
 #include "clear.h"
 #include "frame.h"
 #include "invader.h"
+#include "drawable_parent.h"
 
 
 using namespace std;
@@ -16,7 +17,7 @@ using namespace std;
 
 void update_invaders(Army &invaders) {
     while (true) {
-        sleep(1);
+        this_thread::sleep_for(chrono::milliseconds(1000));
         invaders.update();
     }
 }
@@ -28,10 +29,21 @@ int main() {
     // cout << "success" << endl;
     // TODO: gameloop
     Army invaders;
+    thread update_army(&update_invaders, invaders);
     while (true) {
         Frame f;
-        thread update_army(&update_invaders, invaders);
+        // Get user input
         
+        // Update player
+
+        // Draw and render
+        vector<Drawable*> drawables = {&invaders};
+        for (Drawable* drawable: drawables) {
+            drawable->draw(f);
+        }
+        f.render();
+        // Ensure this is not too fast
+        this_thread::sleep_for(chrono::milliseconds(1));
     }
     return 0;
 }

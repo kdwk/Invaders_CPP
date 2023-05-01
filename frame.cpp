@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+// #include <curses.h>
 #include "clear.h"
 #include "frame.h"
+#include "invader.h"
 #include "constants.h"
 
 using namespace std;
@@ -20,6 +22,7 @@ void Frame::composite() {
     // Everyone do csd
     // Add status bar
 }
+
 
 void Frame::render() {
     // TODO: change to flush mechanism instead of clear to eliminate flickering
