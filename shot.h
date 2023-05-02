@@ -4,6 +4,7 @@
 #include <bits/stdc++.h>
 #include "drawable_parent.h"
 #include "lib.h"
+#include "frame.h"
 
 class Shot : public Drawable {
     public:
@@ -11,7 +12,9 @@ class Shot : public Drawable {
         int y;
         bool exploding;
         Health stat;
+        Shot(int init_x, int init_y);
         void update();
+        void draw(Frame &f);
         void explode();
 };
 
