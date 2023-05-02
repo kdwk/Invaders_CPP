@@ -5,6 +5,6 @@
 
 using namespace std;
 
-void clear();
+void aclear();
 
 #endif

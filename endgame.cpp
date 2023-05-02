@@ -5,13 +5,13 @@
 using namespace std;
 
 void w() {
-    clear();
+    aclear();
     cout << "🎉 You've won!" << endl;
     exit(0);
 }
 
 void l() {
-    clear();
+    aclear();
     cout << "😕 You lose" << endl;
     exit(0);
 }

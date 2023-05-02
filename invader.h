@@ -28,6 +28,7 @@ class Army : public Drawable{
     Direction vec;
     int move_timer_value;
     Symbol sym;
+    int rows_descended;
     bool are_all_dead();
     bool reached_bottom();
     bool reached_left_wall();
@@ -36,7 +37,7 @@ class Army : public Drawable{
     public:
         std::vector<Invader> army;
         Army();
-        Endgame update();
+        std::tuple<Endgame, int> update();
         void draw(Frame &f);
 };
 

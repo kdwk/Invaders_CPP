@@ -26,7 +26,7 @@ void Frame::composite() {
 
 void Frame::render() {
     // TODO: change to flush mechanism instead of clear to eliminate flickering
-    clear();
+    aclear();
     for (int y=0; y<NUM_ROWS; y++){
         for (int x=0; x<NUM_COLS; x++) {
             cout << content[x][y];
