@@ -27,18 +27,21 @@ Endgame update_invaders(Army &invaders) {
             case Endgame::cont:
                 cout << "Cont";
                 int a; // Do nothing, but idk how to actually do nothing
+                break;
             case Endgame::lose:
                 cout << "Lose";
                 state = Endgame::lose;
                 state_mutex.lock();
                 myqueue.push(state);
                 state_mutex.unlock();
+                break;
             case Endgame::win:
                 cout << "Win";
                 state = Endgame::win;
                 state_mutex.lock();
                 myqueue.push(state);
                 state_mutex.unlock();
+                break;
         }
     }
 }
@@ -79,10 +82,13 @@ int main() {
     switch (result) {
         case Endgame::lose:
             l();
+            break;
         case Endgame::win:
             w();
+            break;
         default:
             cout << "What??" << endl;
+            break;
     }
     update_army.join();
     return 0;

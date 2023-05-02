@@ -82,8 +82,10 @@ Endgame Army::update() {
     switch (sym) {
         case Symbol::plus:
             sym = Symbol::cross;
+            break;
         case Symbol::cross:
             sym = Symbol::plus;
+            break;
     }
     if (vec == Direction::left) {
         // Move to the left by one
@@ -115,9 +117,11 @@ void Army::draw(Frame &f) {
             for (Invader invader: army) {
                 f.content[invader.x][invader.y] = "+";
             }
+            break;
         case Symbol::cross:
             for (Invader invader: army) {
                 f.content[invader.x][invader.y] = "x";
             }
+            break;
     }
 }
