@@ -74,9 +74,9 @@ Army::Army() {
 
 Endgame Army::update() {
     // Test win
-    for (Invader invader: army) {
-        invader.stat = Health::dead;
-    }
+    // for (Invader invader: army) {
+    //     invader.stat = Health::dead;
+    // }
     // If army all dead, trigger win
     if (are_all_dead()) {return Endgame::win;}
     switch (sym) {
