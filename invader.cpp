@@ -20,7 +20,7 @@ bool Army::are_all_dead() {
 
 bool Army::reached_bottom() {
     for (Invader invader: army) {
-        if (invader.stat == alive && invader.y >= NUM_ROWS-1) {
+        if (invader.stat == alive && invader.y >= NUM_ROWS-2) {
             return true;
         }
     }

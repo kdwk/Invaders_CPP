@@ -9,14 +9,20 @@ frame.o: frame.cpp frame.h
 invader.o: invader.cpp invader.h
 	g++ -c invader.cpp
 
+shot.o: shot.cpp shot.h
+	g++ -c shot.cpp
+
+player.o: player.cpp player.h
+	g++ -c player.cpp
+
 endgame.o: endgame.cpp endgame.h
 	g++ -c endgame.cpp
 
 invaders.o: main.cpp
 	g++ -c main.cpp
 
-invaders: clear.o frame.o invader.o endgame.o main.o
-	g++ clear.o frame.o invader.o endgame.o main.o -o invaders
+invaders: clear.o frame.o invader.o endgame.o player.o shot.o main.o
+	g++ clear.o frame.o invader.o player.o shot.o endgame.o main.o -o invaders
 
 clean:
 	rm -f invaders *.o

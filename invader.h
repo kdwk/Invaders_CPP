@@ -25,7 +25,6 @@ enum Direction {
 };
 
 class Army : public Drawable{
-    std::vector<Invader> army;
     Direction vec;
     int move_timer_value;
     Symbol sym;
@@ -35,6 +34,7 @@ class Army : public Drawable{
     bool reached_right_wall();
     // void csd(Frame &f);
     public:
+        std::vector<Invader> army;
         Army();
         Endgame update();
         void draw(Frame &f);

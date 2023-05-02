@@ -5,6 +5,7 @@
 #include "drawable_parent.h"
 #include "lib.h"
 #include "frame.h"
+#include "invader.h"
 
 class Shot : public Drawable {
     public:
@@ -13,9 +14,8 @@ class Shot : public Drawable {
         bool exploding;
         Health stat;
         Shot(int init_x, int init_y);
-        void update();
+        void update(Army &army);
         void draw(Frame &f);
-        void explode();
 };
 
 #endif
