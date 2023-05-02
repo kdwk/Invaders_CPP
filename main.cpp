@@ -14,30 +14,34 @@ Endgame state = Endgame::cont;
 mutex state_mutex;
 queue<Endgame> myqueue;
 
-void get_input(Player &player) {
-    // Does not work
-    while (true) {
-        int keypress = 0;
-        switch (keypress=getchar()) {
-            case KEY_LEFT:
-                player.move_left();
-                break;
-            case KEY_RIGHT:
-                player.move_right();
-                break;
-            case KEY_SPACE:
-                player.shoot();
-                break;
-            case KEY_Q:
-                cout << "Lose";
-                state = Endgame::lose;
-                state_mutex.lock();
-                myqueue.push(state);
-                state_mutex.unlock();
-                break;
-        }
-    }
-}
+// char keypress = 0;
+// mutex keypress_mutex;
+// queue<char> myqueue2;
+
+// void get_input(Player &player) {
+//     // Does not work
+//     while (true) {
+//         int keypress = 0;
+//         switch (keypress=getchar()) {
+//             case KEY_LEFT:
+//                 player.move_left();
+//                 break;
+//             case KEY_RIGHT:
+//                 player.move_right();
+//                 break;
+//             case KEY_SPACE:
+//                 player.shoot();
+//                 break;
+//             case KEY_Q:
+//                 cout << "Lose";
+//                 state = Endgame::lose;
+//                 state_mutex.lock();
+//                 myqueue.push(state);
+//                 state_mutex.unlock();
+//                 break;
+//         }
+//     }
+// }
 
 void update_invaders(Army &invaders) {
     int rows_descended = 0;
@@ -81,54 +85,71 @@ void update_player_shots(Player &player, Army &invaders) {
 void render(Frame &f) {
     while (true) {
         f.render();
-        this_thread::sleep_for(chrono::milliseconds(1));
+        this_thread::sleep_for(chrono::milliseconds(10));
     }
 }
 
-static char get_input() {
-    char input;
-    cin >> input;
-    return input;
+bool stdinHasData() {
+    // using a timeout of 0 so we aren't waiting:
+    struct timespec timeout{ 0l, 0l };
+
+    // create a file descriptor set
+    fd_set fds{};
+
+    // initialize the fd_set to 0
+    FD_ZERO(&fds);
+    // set the fd_set to target file descriptor 0 (STDIN)
+    FD_SET(0, &fds);
+
+    // pselect the number of file descriptors that are ready, since
+    //  we're only passing in 1 file descriptor, it will return either
+    //  a 0 if STDIN isn't ready, or a 1 if it is.
+    return pselect(0 + 1, &fds, nullptr, nullptr, &timeout, nullptr) == 1;
+}
+
+void get_input(Player &player) {
+    int keypress{ 0 };
+    // continue looping until the user enters a lowercase 'q'
+    while (true)
+    {
+        if (stdinHasData()) {
+            keypress = std::cin.get();
+            switch (keypress) {
+                case KEY_LEFT:
+                    player.move_left();
+                    break;
+                case KEY_RIGHT:
+                    player.move_right();
+                    break;
+                case KEY_SPACE:
+                    player.shoot();
+                    break;
+                case KEY_Q:
+                    cout << "Lose";
+                    state = Endgame::lose;
+                    state_mutex.lock();
+                    myqueue.push(state);
+                    state_mutex.unlock();
+                    break;
+            }
+        }
+    }
 }
 
 int main() {
     aclear();
-    // struct termios term_settings;
-    // SetKeyboardNonBlock(&term_settings);
-    chrono::milliseconds timeout(10);
     Army invaders;
     Player player;
     thread update_army_thread(&update_invaders, ref(invaders));
     thread update_shots_thread(&update_player_shots, ref(player), ref(invaders));
     // thread input_thread(&get_input, ref(player));
-    bool init_render_thread = false;
+    // bool init_render_thread = false;
     state_mutex.lock();
 
     // Game loop
     while (myqueue.empty()) {
         state_mutex.unlock();
         Frame f;
-        // Get user input
-        future<char> future = async()
-        int keypress = 0;
-        switch (???) { // TODO
-            case KEY_LEFT:
-                player.move_left();
-                break;
-            case KEY_RIGHT:
-                player.move_right();
-                break;
-            case KEY_SPACE:
-                player.shoot();
-                break;
-            case KEY_Q:
-                cout << "Lose";
-                state = Endgame::lose;
-                state_mutex.lock();
-                myqueue.push(state);
-                state_mutex.unlock();
-                break;
-        }
         // Update player
 
         // Draw and render
@@ -138,11 +159,12 @@ int main() {
         // // }
         invaders.draw(f);
         player.draw(f);
-        if (!init_render_thread) {
-            // Very hacky, but will have to do
-            thread render_thread(&render, ref(f));
-            init_render_thread = true;
-        }
+        f.render();
+        // if (!init_render_thread) {
+        //     // Very hacky, but will have to do
+        //     thread render_thread(&render, ref(f));
+        //     init_render_thread = true;
+        // }
         // Ensure this is not too fast
         this_thread::sleep_for(chrono::milliseconds(1));
         state_mutex.lock();
