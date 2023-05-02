@@ -5,11 +5,7 @@
 #include "frame.h"
 #include "drawable_parent.h"
 #include "endgame.h"
-
-enum Health {
-    alive,
-    dead
-};
+#include "lib.h"
 
 enum Symbol {
     plus,
