@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 #include <curses.h>
-#include "clear.h"
 #include "frame.h"
-#include "invader.h"
 #include "lib.h"
 
 using namespace std;
@@ -33,6 +31,7 @@ void Frame::render() {
     //     }
     //     cout << endl;
     // }
+    composite();
     for (int y=0; y<NUM_ROWS; y++) {
         for (int x=0; x<NUM_COLS; x++) {
             mvaddstr(y, x, content[x][y].c_str());

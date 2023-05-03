@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 #include "invader.h"
 #include "lib.h"
-#include "later.h"
-#include "endgame.h"
 #include "frame.h"
 
 using namespace std;
@@ -71,13 +69,13 @@ Army::Army() {
     // TODO: hook up update mechanism...?
 }
 
-tuple<Endgame,int> Army::update() {
+Endgame Army::update() {
     // Test win
     // for (Invader invader: army) {
     //     invader.stat = Health::dead;
     // }
     // If army all dead, trigger win
-    if (are_all_dead()) {return {Endgame::win, rows_descended};}
+    if (are_all_dead()) {return Endgame::win;}
     switch (sym) {
         case Symbol::plus:
             sym = Symbol::cross;
@@ -103,12 +101,12 @@ tuple<Endgame,int> Army::update() {
         // If reached the bottom, trigger lose
         for (Invader &invader: army) {invader.y += 1;}
         rows_descended += 1;
-        if (reached_bottom()) {return {Endgame::lose, rows_descended};}
+        if (reached_bottom()) {return Endgame::lose;}
         if (reached_left_wall()) {vec = Direction::right;}
         else if (reached_right_wall()) {vec = Direction::left;}
     }
-    if (reached_bottom()) {return {Endgame::lose, rows_descended};}
-    return {Endgame::cont, rows_descended};
+    if (reached_bottom()) {return Endgame::lose;}
+    return Endgame::cont;
 }
 
 void Army::draw(Frame &f) {

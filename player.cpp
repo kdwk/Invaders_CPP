@@ -3,6 +3,8 @@
 #include "lib.h"
 #include "invader.h"
 
+using namespace std;
+
 Player::Player() {
     x = NUM_COLS/2;
     y = NUM_ROWS-1;
@@ -39,9 +41,6 @@ void Player::update_shots(Army &army) {
                 break;
             case Health::alive:
                 continue;
-                break;
-            default:
-                int a = 1; // Do nothing but idk how to actually do nothing
                 break;
         }
     }
