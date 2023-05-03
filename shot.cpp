@@ -17,6 +17,7 @@ void Shot::update(Army &army) {
         y -= 1;
     } else {
         stat = Health::dead;
+        return;
     }
     for (Invader &invader: army.army) {
         if (invader.x == x && invader.y == y) {

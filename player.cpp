@@ -33,16 +33,20 @@ bool Player::shoot() {
 }
 
 void Player::update_shots(Army &army) {
-    for (auto shot=shots.begin(); shot!=shots.end(); shot++) {
-        shot->update(army);
-        switch (shot->stat) {
+    vector<int> dead_shots = {};
+    for (int i=0; i<shots.size(); i++) {
+        shots[i].update(army);
+        switch (shots[i].stat) {
             case Health::dead:
-                shots.erase(shot);
+                dead_shots.push_back(i);
                 break;
             case Health::alive:
                 continue;
                 break;
         }
+    }
+    for (int dead_shot: dead_shots) {
+        shots.erase(shots.begin()+dead_shot);
     }
 }
 

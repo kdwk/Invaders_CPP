@@ -43,17 +43,6 @@ bool Army::reached_right_wall() {
     return false;
 }
 
-// void Army::csd(Frame &f) {
-//     for (Invader invader: army) {
-//         switch (sym) {
-//             case Symbol::plus:
-//                 f.content[invader.x][invader.y] = "+";
-//             case Symbol::cross:
-//                 f.content[invader.x][invader.y] = "x";
-//         }
-//     }
-// }
-
 Army::Army() {
     for (int x=1; x<NUM_COLS-2; x++) {
         for (int y=1; y<9; y++) {
@@ -70,10 +59,6 @@ Army::Army() {
 }
 
 Endgame Army::update() {
-    // Test win
-    // for (Invader invader: army) {
-    //     invader.stat = Health::dead;
-    // }
     // If army all dead, trigger win
     if (are_all_dead()) {return Endgame::win;}
     switch (sym) {

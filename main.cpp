@@ -10,7 +10,6 @@ using namespace std;
 
 Endgame state = Endgame::cont;
 queue<Endgame> myqueue;
-queue<int> index_invaders_killed;
 
 // Retrieved from https://stackoverflow.com/questions/3557221/how-do-i-measure-time-in-c#3557272
 int64_t millis()
@@ -56,9 +55,11 @@ int main() {
     clear();
     Army invaders;
     Player player;
-    int64_t time_now = millis();
-    int duration = 2500;
+    int64_t invaders_time_now = millis();
+    int invaders_update_duration = 2500;
     int rows_descended = 0;
+    int64_t shots_time_now = millis();
+    int shots_update_duration = 50;
     // Game loop
     while (myqueue.empty()) {
         Frame f;
@@ -78,15 +79,18 @@ int main() {
                 break;
         }
         // Updates
-        if (millis()-time_now >= duration) {
+        if (millis()-invaders_time_now >= invaders_update_duration) {
             update_invaders(invaders);
-            if (duration-250 >= 250 && invaders.rows_descended > rows_descended) {
-                duration -= 250;
+            if (invaders_update_duration-250 >= 250 && invaders.rows_descended > rows_descended) {
+                invaders_update_duration -= 250;
                 rows_descended = invaders.rows_descended;
             }
-            time_now = millis();
+            invaders_time_now = millis();
         }
-        player.update_shots(invaders);
+        if (millis()-shots_time_now >= shots_update_duration){
+            player.update_shots(invaders);
+            shots_time_now = millis();
+        }
         //Draw and render
         invaders.draw(f);
         player.draw(f);

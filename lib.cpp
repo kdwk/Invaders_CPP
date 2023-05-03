@@ -13,7 +13,7 @@ void w() {
 
 void l() {
     clear();
-    mvaddstr(NUM_ROWS/2, NUM_COLS/2, "🎉 You've won!");
+    mvaddstr(NUM_ROWS/2, NUM_COLS/2, "😕 You lose");
     refresh();
     this_thread::sleep_for(chrono::milliseconds(2000));
 }
