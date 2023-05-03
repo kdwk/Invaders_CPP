@@ -71,7 +71,6 @@ Army::Army() {
     // TODO: hook up update mechanism...?
 }
 
-
 tuple<Endgame,int> Army::update() {
     // Test win
     // for (Invader invader: army) {
