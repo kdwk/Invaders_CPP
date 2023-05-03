@@ -14,7 +14,7 @@ class Shot : public Drawable {
         bool exploding;
         Health stat;
         Shot(int init_x, int init_y);
-        void update(Army &army);
+        bool update(Army &army);
         void draw(Frame &f);
 };
 

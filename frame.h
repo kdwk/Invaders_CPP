@@ -4,11 +4,11 @@
 #include <bits/stdc++.h>
 
 class Frame {
-    void composite();
+    void composite(int score);
     public:
         std::vector<std::vector<std::string>> content;
         Frame();
-        void render();
+        void render(int score);
 };
 
 #endif

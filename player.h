@@ -10,6 +10,7 @@ class Player : public Drawable {
     public:
         int x;
         int y;
+        int score;
         std::vector<Shot> shots;
         void move_left();
         void move_right();

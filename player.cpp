@@ -9,6 +9,7 @@ Player::Player() {
     x = NUM_COLS/2;
     y = NUM_ROWS-1;
     shots = {};
+    score = 0;
 }
 
 void Player::move_left() {
@@ -35,15 +36,15 @@ bool Player::shoot() {
 void Player::update_shots(Army &army) {
     vector<int> dead_shots = {};
     for (int i=0; i<shots.size(); i++) {
-        shots[i].update(army);
+        bool killed_invader = shots[i].update(army);
         switch (shots[i].stat) {
             case Health::dead:
                 dead_shots.push_back(i);
                 break;
             case Health::alive:
-                continue;
                 break;
         }
+        if (killed_invader) {score += 1;}
     }
     for (int dead_shot: dead_shots) {
         shots.erase(shots.begin()+dead_shot);

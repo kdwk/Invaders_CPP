@@ -35,13 +35,6 @@ void update_invaders(Army &invaders) {
     }
 }
 
-void render(Frame &f) {
-    while (true) {
-        f.render();
-        this_thread::sleep_for(chrono::milliseconds(10));
-    }
-}
-
 int main() {
     initscr(); // Initialize ncurses
     cbreak();
@@ -91,7 +84,7 @@ int main() {
         // Draw and render
         invaders.draw(f);
         player.draw(f);
-        f.render();
+        f.render(player.score);
         // Ensure this is not too fast
         this_thread::sleep_for(chrono::milliseconds(1));
     }

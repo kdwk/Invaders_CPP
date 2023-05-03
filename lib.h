@@ -12,7 +12,7 @@ const int NUM_ROWS = 30;
 #define KEY_SPACE 32
 #define KEY_Q 113
 
-const int NUM_INVADERS = 40;
+const int NUM_INVADERS = 30;
 
 // std::mutex mtx;
 

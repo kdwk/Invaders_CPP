@@ -55,7 +55,7 @@ Army::Army() {
     }
     vec = Direction::left;
     sym = Symbol::plus;
-    // TODO: hook up update mechanism...?
+    rows_descended = 0;
 }
 
 Endgame Army::update() {

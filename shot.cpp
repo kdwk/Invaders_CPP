@@ -12,21 +12,22 @@ Shot::Shot(int init_x, int init_y) {
     exploding = false;
 }
 
-void Shot::update(Army &army) {
+bool Shot::update(Army &army) {
     if (y-1 >= 0) {
         y -= 1;
     } else {
         stat = Health::dead;
-        return;
+        return false;
     }
     for (Invader &invader: army.army) {
         if (invader.x == x && invader.y == y && invader.stat!=Health::dead) {
             invader.stat = Health::dead;
             // exploding = true;
             stat = Health::dead;
-            break;
+            return true;
         }
     }
+    return false;
 }
 
 void Shot::draw(Frame &f) {
