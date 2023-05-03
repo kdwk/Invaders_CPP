@@ -58,9 +58,9 @@ Army::Army() {
     rows_descended = 0;
 }
 
-Endgame Army::update() {
+Status Army::update() {
     // If army all dead, trigger win
-    if (are_all_dead()) {return Endgame::win;}
+    if (are_all_dead()) {return Status::win;}
     switch (sym) {
         case Symbol::plus:
             sym = Symbol::cross;
@@ -86,12 +86,12 @@ Endgame Army::update() {
         // If reached the bottom, trigger lose
         for (Invader &invader: army) {invader.y += 1;}
         rows_descended += 1;
-        if (reached_bottom()) {return Endgame::lose;}
+        if (reached_bottom()) {return Status::lose;}
         if (reached_left_wall()) {vec = Direction::right;}
         else if (reached_right_wall()) {vec = Direction::left;}
     }
-    if (reached_bottom()) {return Endgame::lose;}
-    return Endgame::cont;
+    if (reached_bottom()) {return Status::lose;}
+    return Status::cont;
 }
 
 void Army::draw(Frame &f) {

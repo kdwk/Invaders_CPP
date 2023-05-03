@@ -34,7 +34,7 @@ class Army : public Drawable{
         int rows_descended;
         std::vector<Invader> army;
         Army();
-        Endgame update();
+        Status update();
         void draw(Frame &f);
 };
 

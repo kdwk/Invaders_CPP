@@ -21,7 +21,7 @@ enum Health {
     dead
 };
 
-enum Endgame {
+enum Status {
     win,
     lose,
     cont
