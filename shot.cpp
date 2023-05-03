@@ -20,7 +20,7 @@ void Shot::update(Army &army) {
         return;
     }
     for (Invader &invader: army.army) {
-        if (invader.x == x && invader.y == y) {
+        if (invader.x == x && invader.y == y && invader.stat!=Health::dead) {
             invader.stat = Health::dead;
             // exploding = true;
             stat = Health::dead;

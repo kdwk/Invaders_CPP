@@ -46,7 +46,7 @@ bool Army::reached_right_wall() {
 Army::Army() {
     for (int x=1; x<NUM_COLS-2; x++) {
         for (int y=1; y<9; y++) {
-            if (army.size() >= 140) {break;}
+            if (army.size() >= NUM_INVADERS) {break;}
             int decision = rand()%2;
             if (decision) {
                 army.push_back(Invader{x,y,alive});
@@ -98,12 +98,16 @@ void Army::draw(Frame &f) {
     switch (sym) {
         case Symbol::plus:
             for (Invader invader: army) {
-                f.content[invader.x][invader.y] = "+";
+                if (invader.stat == Health::alive) {
+                    f.content[invader.x][invader.y] = "+";
+                }
             }
             break;
         case Symbol::cross:
             for (Invader invader: army) {
-                f.content[invader.x][invader.y] = "x";
+                if (invader.stat == Health::alive) {
+                    f.content[invader.x][invader.y] = "x";
+                }
             }
             break;
     }

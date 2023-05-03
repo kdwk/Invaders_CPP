@@ -25,12 +25,10 @@ void update_invaders(Army &invaders) {
         case Endgame::cont:
             break;
         case Endgame::lose:
-            // cout << "Lose";
             state = Endgame::lose;
             myqueue.push(state);
             break;
         case Endgame::win:
-            // cout << "Win";
             state = Endgame::win;
             myqueue.push(state);
             break;
@@ -45,14 +43,13 @@ void render(Frame &f) {
 }
 
 int main() {
-    // aclear();
-    initscr();
+    initscr(); // Initialize ncurses
     cbreak();
-    keypad(stdscr, TRUE);
-    curs_set(0);
-    noecho();
-    timeout(5);
-    clear();
+    keypad(stdscr, TRUE); // Allows interception of more keyboard keys
+    curs_set(0); // Hide cursor
+    noecho(); // Typed letters will not be shown on screen
+    timeout(5); // 5 millisecond timeout for get character so it doesn't block the program
+    clear(); // Clear screen, enter alternate screen mode
     Army invaders;
     Player player;
     int64_t invaders_time_now = millis();
@@ -91,7 +88,7 @@ int main() {
             player.update_shots(invaders);
             shots_time_now = millis();
         }
-        //Draw and render
+        // Draw and render
         invaders.draw(f);
         player.draw(f);
         f.render();
@@ -99,7 +96,6 @@ int main() {
         this_thread::sleep_for(chrono::milliseconds(1));
     }
 
-    // cout << "Out of while loop";
     Endgame result = myqueue.front();
     switch (result) {
         case Endgame::lose:
@@ -108,11 +104,8 @@ int main() {
         case Endgame::win:
             w();
             break;
-        default:
-            // cout << "What??" << endl;
-            break;
     }
-    curs_set(1);
-    endwin();
+    curs_set(1); // Show cursor
+    endwin(); // Leave alternate screen mode
     return 0;
 }
