@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <curses.h>
 #include "later.h"
 #include "lib.h"
 #include "clear.h"
@@ -52,7 +53,6 @@ void update_invaders(Army &invaders) {
         switch (get<0>(result)) {
             case Endgame::cont:
                 cout << "Cont";
-                int a; // Do nothing, but idk how to actually do nothing
                 break;
             case Endgame::lose:
                 cout << "Lose";
@@ -137,7 +137,11 @@ void get_input(Player &player) {
 }
 
 int main() {
-    aclear();
+    // aclear();
+    initscr();
+    cbreak();
+    noecho();
+    clear();
     Army invaders;
     Player player;
     thread update_army_thread(&update_invaders, ref(invaders));
@@ -186,5 +190,6 @@ int main() {
     update_army_thread.join();
     update_shots_thread.join();
     // input_thread.join();
+    endwin();
     return 0;
 }

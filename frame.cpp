@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-// #include <curses.h>
+#include <curses.h>
 #include "clear.h"
 #include "frame.h"
 #include "invader.h"
@@ -26,12 +26,18 @@ void Frame::composite() {
 
 void Frame::render() {
     // TODO: change to flush mechanism instead of clear to eliminate flickering
-    aclear();
-    for (int y=0; y<NUM_ROWS; y++){
+    // aclear();
+    // for (int y=0; y<NUM_ROWS; y++){
+    //     for (int x=0; x<NUM_COLS; x++) {
+    //         cout << content[x][y];
+    //     }
+    //     cout << endl;
+    // }
+    for (int y=0; y<NUM_ROWS; y++) {
         for (int x=0; x<NUM_COLS; x++) {
-            cout << content[x][y];
+            mvaddstr(y, x, content[x][y].c_str());
         }
-        cout << endl;
     }
+    refresh();
 };
 
