@@ -6,26 +6,30 @@ using namespace std;
 
 void w() {
     clear();
-    mvaddstr(NUM_ROWS/2, NUM_COLS/2, "🎉 You win!");
+    string str = "🎉 You win!";
+    mvaddwstr(NUM_ROWS/2, NUM_COLS/2, wstring(str.begin(), str.end()).c_str());
     refresh();
     this_thread::sleep_for(chrono::milliseconds(2000));
 };
 
 void l() {
     clear();
-    mvaddstr(NUM_ROWS/2, NUM_COLS/2, "😕 You lose");
+    string str = "😕 You lose";
+    mvaddwstr(NUM_ROWS/2, NUM_COLS/2, wstring(str.begin(), str.end()).c_str());
     refresh();
     this_thread::sleep_for(chrono::milliseconds(2000));
 }
 
 void greet() {
     clear();
-    int init_y = NUM_ROWS/2-1;
+    int y = NUM_ROWS/2-3;
     int slice_begin = 0;
-    for (int y=init_y; y<init_y+3; y++){
-        mvaddstr(y, NUM_COLS/2-16, INVADERS_ASCII.substr(slice_begin, 32).c_str());
-        slice_begin += 32;
-    }
-    mvaddstr(init_y+3, NUM_COLS/2-11, "Press any key to continue");
+    mvaddstr(y, 0, " __  .__   __. ____    ____  ___       _______   _______ .______          _______.");
+    mvaddstr(y+1, 0, "|  | |  \\ |  | \\   \\  /   / /   \\     |       \\ |   ____||   _  \\        /       |");
+    mvaddstr(y+2, 0, "|  | |   \\|  |  \\   \\/   / /  ^  \\    |  .--.  ||  |__   |  |_)  |      |   (----`");
+    mvaddstr(y+3, 0, "|  | |  . `  |   \\      / /  /_\\  \\   |  |  |  ||   __|  |      /        \\   \\    ");
+    mvaddstr(y+4, 0, "|  | |  |\\   |    \\    / /  _____  \\  |  '--'  ||  |____ |  |\\  \\----.----)   |   ");
+    mvaddstr(y+5, 0, "|__| |__| \\__|     \\__/ /__/     \\__\\ |_______/ |_______|| _| `._____|_______/    ");
+    mvaddstr(y+7, 0, "Press any key to continue");
     getch();
 }

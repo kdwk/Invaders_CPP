@@ -25,7 +25,7 @@ int main() {
     initscr();                     // Initialize ncurses
     cbreak();
     keypad(stdscr, TRUE);          // Allows interception of more keyboard keys
-    setlocale(LC_ALL, "");         // Allows UTF-8 characters to be displayed correctly
+    setlocale(LC_ALL, "");         // Allows UTF-8 characters to be displayed correctly...?
     curs_set(0);                   // Hide cursor
     noecho();                      // Typed letters will not be shown on screen
     greet();                       // Shows greeting
@@ -56,6 +56,9 @@ int main() {
             case KEY_Q:
                 state = Status::lose;   // Put 'lose' status in the queue, loop will break next cycle
                 break;
+            case KEY_P:
+                state = Status::paus;
+                break;
         }
         // Updates
         if (millis()-invaders_time_now >= invaders_update_duration) {                              // Check whether it is time to update the invaders again
@@ -76,6 +79,12 @@ int main() {
         f.render(player.score);  // Frame pushed to screen
         // Ensure this is not too fast
         this_thread::sleep_for(chrono::milliseconds(1));
+        if (state == Status::paus) {
+            timeout(-1);            // getch() have indefinite timeout, block execution
+            getch();                // Press any key to continue
+            state = Status::cont;  // Continue
+            timeout(5);             // Restore original timeout of getch() such that it doesn't block execution
+        }
     }
 
     switch (state) {            // A game status update broke the game loop; check what it is

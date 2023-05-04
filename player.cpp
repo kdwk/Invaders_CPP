@@ -25,7 +25,7 @@ void Player::move_right() {
 }
 
 bool Player::shoot() {
-    if (shots.size() < 2) {
+    if (shots.size() < NUM_SHOTS_ALLOWED) {
         shots.push_back(Shot(x, y-1));
         return true;
     } else {
