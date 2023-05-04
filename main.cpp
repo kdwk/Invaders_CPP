@@ -10,7 +10,7 @@ using namespace std;
 
 Status state = Status::cont; // The default game status should be 'continue'
 int NUM_INVADERS = 50;
-int INITIAL_INVADER_SPEED = 1000; // Initial update duration in milliseconds
+int INITIAL_INVADER_SPEED = 1000; // Default update duration in milliseconds
 
 // Retrieved from https://stackoverflow.com/questions/3557221/how-do-i-measure-time-in-c#3557272
 int64_t millis() {
@@ -39,6 +39,10 @@ void update_level_info(Level level) {
             NUM_INVADERS = 140;
             INITIAL_INVADER_SPEED = 500;
             break;
+        case Level::test:
+            NUM_INVADERS = 1;
+            INITIAL_INVADER_SPEED = 10000;
+            break;
     }
 }
 
@@ -61,6 +65,7 @@ int main() {
     int64_t shots_time_now = millis();    // Shots: mark time
     int shots_update_duration = 50;       // Shots update rate
 
+    int64_t game_duration_start = millis();
     // Game loop
     while (state == Status::cont) {       // If the game status is "continue", keep looping
         Frame f;
@@ -83,17 +88,17 @@ int main() {
                 break;
         }
         // Updates
-        if (millis()-invaders_time_now >= invaders_update_duration) {                              // Check whether it is time to update the invaders again
+        if (millis()-shots_time_now >= shots_update_duration){                                     // Check whether it is time to update the shots again
+            player.update_shots(invaders);
+            shots_time_now = millis();                                                             // Shots: reset mark time
+        }
+        if (invaders.are_all_dead() || millis()-invaders_time_now >= invaders_update_duration) {                              // Check whether it is time to update the invaders again
             update_invaders(invaders);
             if (invaders_update_duration-250 >= 250 && invaders.rows_descended > rows_descended) { // If invaders descended a row, increase speed, min update duration 250ms
                 invaders_update_duration -= 250;
                 rows_descended = invaders.rows_descended;
             }
             invaders_time_now = millis();                                                          // Invaders: reset mark time
-        }
-        if (millis()-shots_time_now >= shots_update_duration){                                     // Check whether it is time to update the shots again
-            player.update_shots(invaders);
-            shots_time_now = millis();                                                             // Shots: reset mark time
         }
         // Draw and render
         invaders.draw(f);        // Army draws itself on the frame
@@ -104,17 +109,19 @@ int main() {
         if (state == Status::paus) {
             timeout(-1);            // getch() have indefinite timeout, block execution
             getch();                // Press any key to continue
-            state = Status::cont;  // Continue
+            state = Status::cont;   // Continue
             timeout(5);             // Restore original timeout of getch() such that it doesn't block execution
         }
     }
+    int64_t game_duration_end = millis();
+    double game_duration_seconds = (game_duration_end-game_duration_start)/1000.0;
 
     switch (state) {            // A game status update broke the game loop; check what it is
         case Status::lose:
             l();
             break;
         case Status::win:
-            w();
+            w(game_duration_seconds);
             break;
     }
     curs_set(1); // Show cursor

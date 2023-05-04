@@ -24,15 +24,18 @@ enum Status {
 };
 
 enum Level {
+    test,
     easy,
     medium,
     hard,
     extreme
 };
 
-void w();
+void w(double seconds);
 void l();
 void p();
+
+void update_leaderboard(std::string player_name, double seconds);
 
 void greet();
 Level choose_difficulty();

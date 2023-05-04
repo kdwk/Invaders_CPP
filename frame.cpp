@@ -29,6 +29,6 @@ void Frame::render(int score, int NUM_INVADERS) {
         }
     }
     composite(score, NUM_INVADERS); // Add game status
-    refresh();        // Flush buffer
+    refresh();                      // Flush buffer
 };
 

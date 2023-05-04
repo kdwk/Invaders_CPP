@@ -26,7 +26,6 @@ enum Direction {
 class Army : public Drawable{
     Direction vec;
     Symbol sym;
-    bool are_all_dead();
     bool reached_bottom();
     bool reached_left_wall();
     bool reached_right_wall();
@@ -34,6 +33,7 @@ class Army : public Drawable{
         int rows_descended;
         std::vector<Invader> army;
         Army(int NUM_INVADERS);
+        bool are_all_dead();
         Status update();
         void draw(Frame &f);
 };

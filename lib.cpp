@@ -1,21 +1,69 @@
 #include <bits/stdc++.h>
 #include <ncurses.h>
+#include <form.h>
 #include "lib.h"
 
 using namespace std;
 
-void w() {
+void update_leaderboard(string player_name, double seconds) {
+    system("test -f leaderboard.txt || touch leaderboard.txt");
+    ofstream fout;
+    fout.open("leaderboard.txt");
+    if (fout.fail()) {
+        clear();
+        mvaddstr(0, 0, "Cannot open leaderboard.txt");
+    } else {
+        fout << fixed << setprecision(2);
+        fout << player_name << " " << seconds << endl;
+        fout.close();
+        system("sort -k2 -n leaderboard.txt");
+        system("uniq -c leaderboard.txt");
+    }
+}
+
+string get_player_name() {
+    string player_name = "";
+    int keypress = getch();
+    while (keypress != 10) {
+        switch (keypress) {
+            case KEY_BACKSPACE:
+                if (player_name.length()==0) {break;}
+                else {player_name.pop_back();}
+            default:
+                if (isalnum(keypress)) {
+                    player_name.push_back(keypress);
+                }
+        }
+        keypress = getch();
+    }
+    if (player_name.length()==0) {player_name = "Anonymous";}
+    return player_name;
+}
+
+void w(double seconds) {
     clear();
-    string str = "🎉 You win!";
-    mvaddwstr(NUM_ROWS/2, NUM_COLS/2, wstring(str.begin(), str.end()).c_str());
+    string str = "You win!";
+    mvaddwstr(NUM_ROWS/2, NUM_COLS/2-4, wstring(str.begin(), str.end()).c_str());
     refresh();
     this_thread::sleep_for(chrono::milliseconds(2000));
+    clear();
+    string message = "You have eliminated the invaders in ";
+    message += to_string(seconds);
+    message += " seconds!";
+    mvaddstr(NUM_ROWS/2-1, 0, message.c_str());
+    mvaddstr(NUM_ROWS/2+1, 0, "Enter your name: ");
+    move(NUM_ROWS/2+1, 17);
+    curs_set(1);
+    echo();
+    refresh();
+    string player_name = get_player_name();
+    update_leaderboard(player_name, seconds);
 };
 
 void l() {
     clear();
-    string str = "😕 You lose";
-    mvaddwstr(NUM_ROWS/2, NUM_COLS/2, wstring(str.begin(), str.end()).c_str());
+    string str = "You lose";
+    mvaddwstr(NUM_ROWS/2, NUM_COLS/2-4, wstring(str.begin(), str.end()).c_str());
     refresh();
     this_thread::sleep_for(chrono::milliseconds(2000));
 }
@@ -37,6 +85,7 @@ void greet() {
     refresh();
     getch();
 }
+
 void present_options(int y) {
     mvaddstr(y, NUM_COLS/2-2, "Easy");
     mvaddstr(y+1, NUM_COLS/2-3, "Medium");
@@ -66,6 +115,7 @@ Level choose_difficulty() {
     mvaddstr(y, NUM_COLS/2+5, "<");
     refresh();
     int keypress = getch();
+    if (keypress=='t') {return Level::test;}
     while (keypress != 10) {
         switch (keypress) {
             case KEY_UP:
