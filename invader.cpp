@@ -43,7 +43,7 @@ bool Army::reached_right_wall() {
     return false;
 }
 
-Army::Army() {
+Army::Army(int NUM_INVADERS) {
     for (int x=1; x<NUM_COLS-2; x++) {
         for (int y=1; y<9; y++) {
             if (army.size() >= NUM_INVADERS) {break;}

@@ -33,7 +33,7 @@ class Army : public Drawable{
     public:
         int rows_descended;
         std::vector<Invader> army;
-        Army();
+        Army(int NUM_INVADERS);
         Status update();
         void draw(Frame &f);
 };

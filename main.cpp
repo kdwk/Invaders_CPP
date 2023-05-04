@@ -9,6 +9,8 @@
 using namespace std;
 
 Status state = Status::cont; // The default game status should be 'continue'
+int NUM_INVADERS = 50;
+int INITIAL_INVADER_SPEED = 1000; // Initial update duration in milliseconds
 
 // Retrieved from https://stackoverflow.com/questions/3557221/how-do-i-measure-time-in-c#3557272
 int64_t millis() {
@@ -21,6 +23,25 @@ void update_invaders(Army &invaders) {
     state = invaders.update(); // Returns a game status to see if there is need to end the game
 }
 
+void update_level_info(Level level) {
+    switch (level) {
+        case Level::easy:
+            break;
+        case Level::medium:
+            NUM_INVADERS = 70;
+            INITIAL_INVADER_SPEED = 700;
+            break;
+        case Level::hard:
+            NUM_INVADERS = 100;
+            INITIAL_INVADER_SPEED = 600;
+            break;
+        case Level::extreme:
+            NUM_INVADERS = 140;
+            INITIAL_INVADER_SPEED = 500;
+            break;
+    }
+}
+
 int main() {
     initscr();                     // Initialize ncurses
     cbreak();
@@ -29,9 +50,10 @@ int main() {
     curs_set(0);                   // Hide cursor
     noecho();                      // Typed letters will not be shown on screen
     greet();                       // Shows greeting
+    update_level_info(choose_difficulty());
     timeout(5);                    // 5 millisecond timeout for get character so it doesn't block the program
     clear();                       // Clear screen, enter alternate screen mode
-    Army invaders;
+    Army invaders(NUM_INVADERS);
     Player player;
     int64_t invaders_time_now = millis(); // Invaders: mark time
     int invaders_update_duration = INITIAL_INVADER_SPEED;  // Initial invaders update rate
@@ -76,7 +98,7 @@ int main() {
         // Draw and render
         invaders.draw(f);        // Army draws itself on the frame
         player.draw(f);          // Player draws itself on the frame
-        f.render(player.score);  // Frame pushed to screen
+        f.render(player.score, NUM_INVADERS);  // Frame pushed to screen
         // Ensure this is not too fast
         this_thread::sleep_for(chrono::milliseconds(1));
         if (state == Status::paus) {
