@@ -8,7 +8,7 @@ using namespace std;
 void update_leaderboard(string player_name, double seconds) {
     system("test -f leaderboard.txt || touch leaderboard.txt");
     ofstream fout;
-    fout.open("leaderboard.txt");
+    fout.open("leaderboard.txt", ios::app);
     if (fout.fail()) {
         clear();
         mvaddstr(0, 0, "Cannot open leaderboard.txt");
@@ -16,8 +16,9 @@ void update_leaderboard(string player_name, double seconds) {
         fout << fixed << setprecision(2);
         fout << player_name << " " << seconds << endl;
         fout.close();
-        system("sort -k2 -n leaderboard.txt");
-        system("uniq -c leaderboard.txt");
+        system("sort leaderboard.txt -o leaderboard.txt");
+        system("sort -t ' ' -k 1,1 -u leaderboard.txt -o leaderboard.txt");
+        system("sort -t ' ' -k 2,2 -n leaderboard.txt -o leaderboard.txt");
     }
 }
 
