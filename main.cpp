@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include <curses.h>
+#include <ncurses.h>
 #include "lib.h"
 #include "frame.h"
 #include "invader.h"
@@ -22,22 +22,25 @@ void update_invaders(Army &invaders) {
 }
 
 int main() {
-    initscr();            // Initialize ncurses
+    initscr();                     // Initialize ncurses
     cbreak();
-    keypad(stdscr, TRUE); // Allows interception of more keyboard keys
-    curs_set(0);          // Hide cursor
-    noecho();             // Typed letters will not be shown on screen
-    timeout(5);           // 5 millisecond timeout for get character so it doesn't block the program
-    clear();              // Clear screen, enter alternate screen mode
+    keypad(stdscr, TRUE);          // Allows interception of more keyboard keys
+    setlocale(LC_ALL, "");         // Allows UTF-8 characters to be displayed correctly
+    curs_set(0);                   // Hide cursor
+    noecho();                      // Typed letters will not be shown on screen
+    greet();                       // Shows greeting
+    timeout(5);                    // 5 millisecond timeout for get character so it doesn't block the program
+    clear();                       // Clear screen, enter alternate screen mode
     Army invaders;
     Player player;
     int64_t invaders_time_now = millis(); // Invaders: mark time
-    int invaders_update_duration = 2500;  // Initial invaders update rate
+    int invaders_update_duration = INITIAL_INVADER_SPEED;  // Initial invaders update rate
     int rows_descended = 0;               // Number of rows invaders have descended
     int64_t shots_time_now = millis();    // Shots: mark time
     int shots_update_duration = 50;       // Shots update rate
+
     // Game loop
-    while (state == Status::cont) {      // If the game status is "continue", keep looping
+    while (state == Status::cont) {       // If the game status is "continue", keep looping
         Frame f;
         int keypress = getch();           // Get keyboard input
         switch (keypress) {               // Respond to keyboard input

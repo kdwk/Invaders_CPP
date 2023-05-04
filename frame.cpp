@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include <curses.h>
+#include <ncurses.h>
 #include "frame.h"
 #include "lib.h"
 
@@ -38,6 +38,7 @@ void Frame::composite(int score) {
 
 
 void Frame::render(int score) {
+    mvaddstr(0, 0, "\33[40;94m");
     composite(score); // Add game status
     for (int y=0; y<NUM_ROWS; y++) {
         for (int x=0; x<NUM_COLS; x++) {

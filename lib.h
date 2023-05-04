@@ -5,16 +5,13 @@
 
 const int NUM_COLS = 40;
 const int NUM_ROWS = 30;
-// #define KEY_UP 72
-// #define KEY_DOWN 80
-// #define KEY_LEFT 75
-// #define KEY_RIGHT 77
 #define KEY_SPACE 32
 #define KEY_Q 113
 
-const int NUM_INVADERS = 30;
+const int NUM_INVADERS = 50;
+const int INITIAL_INVADER_SPEED = 2500; // Initial update duration in milliseconds
 
-// std::mutex mtx;
+const std::string INVADERS_ASCII = "░▀█▀░█▀█░█░█░█▀█░█▀▄░█▀▀░█▀▄░█▀▀░░█░░█░█░▀▄▀░█▀█░█░█░█▀▀░█▀▄░▀▀█░▀▀▀░▀░▀░░▀░░▀░▀░▀▀░░▀▀▀░▀░▀░▀▀▀";
 
 enum Health {
     alive,
@@ -30,5 +27,7 @@ enum Status {
 void w();
 
 void l();
+
+void greet();
 
 #endif
