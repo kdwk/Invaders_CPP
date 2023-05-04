@@ -6,6 +6,7 @@
 using namespace std;
 
 bool Army::are_all_dead() {
+    // Returns if all the invaders are dead
     bool all_dead = true;
     for (Invader invader: army) {
         if (invader.stat == alive) {
@@ -17,8 +18,9 @@ bool Army::are_all_dead() {
 }
 
 bool Army::reached_bottom() {
+    // Returns if the army has reached the player's starship
     for (Invader invader: army) {
-        if (invader.stat == alive && invader.y >= NUM_ROWS-2) {
+        if (invader.stat == alive && invader.y >= NUM_ROWS-1) {
             return true;
         }
     }
@@ -26,6 +28,7 @@ bool Army::reached_bottom() {
 }
 
 bool Army::reached_left_wall() {
+    // Returns if the army has reached the left edge of the screen
     for (Invader invader: army) {
         if (invader.stat == alive && invader.x <= 0) {
             return true;
@@ -35,6 +38,7 @@ bool Army::reached_left_wall() {
 }
 
 bool Army::reached_right_wall() {
+    // Returns if the army has reached the right edge of the screen
     for (Invader invader: army) {
         if (invader.stat == alive && invader.x >= NUM_COLS-1) {
             return true;
@@ -44,24 +48,23 @@ bool Army::reached_right_wall() {
 }
 
 Army::Army(int NUM_INVADERS) {
-    for (int x=1; x<NUM_COLS-2; x++) {
-        for (int y=1; y<9; y++) {
-            if (army.size() >= NUM_INVADERS) {break;}
-            int decision = rand()%2;
+    for (int y=1; y<9; y++) {
+        for (int x=1; x<NUM_COLS-2; x++) {
+            if (army.size() >= NUM_INVADERS) {break;} // If army size is already at maximum, don't add new invaders
+            int decision = rand()%2;                  // Randomly decide if there should be an invader here at this coordinate
             if (decision) {
-                army.push_back(Invader{x,y,alive});
+                army.push_back(Invader{x,y,alive});   // Add an invader to the army
             }
         }
     }
-    vec = Direction::left;
-    sym = Symbol::plus;
+    vec = Direction::left;   // Go left first
+    sym = Symbol::plus;      // Army symbol is a plus sign at first
     rows_descended = 0;
 }
 
 Status Army::update() {
-    // If army all dead, trigger win
-    if (are_all_dead()) {return Status::win;}
-    switch (sym) {
+    if (are_all_dead()) {return Status::win;}  // If army all dead, trigger win
+    switch (sym) {                             // Change symbol of the army
         case Symbol::plus:
             sym = Symbol::cross;
             break;

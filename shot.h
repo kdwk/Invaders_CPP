@@ -1,5 +1,6 @@
 #ifndef SHOTS
 #define SHOTS
+// This header declares the Shot class
 
 #include <bits/stdc++.h>
 #include "drawable_parent.h"
@@ -11,11 +12,10 @@ class Shot : public Drawable {
     public:
         int x;
         int y;
-        bool exploding;
-        Health stat;
-        Shot(int init_x, int init_y);
-        bool update(Army &army);
-        void draw(Frame &f);
+        Health stat;  // Keep track of whether it's alive
+        Shot(int init_x, int init_y); // Initialize a shot at a coordinate
+        bool update(Army &army);      // Update the shot; kills the invader if the shot reaches one
+        void draw(Frame &f);          // Draw the shot on the frame
 };
 
 #endif

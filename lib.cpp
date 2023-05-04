@@ -1,28 +1,27 @@
 #include <bits/stdc++.h>
 #include <ncurses.h>
-#include <form.h>
 #include "lib.h"
 
 using namespace std;
 
 void update_leaderboard(string player_name, double seconds) {
-    system("test -f leaderboard.txt || touch leaderboard.txt");
+    system("test -f leaderboard.txt || touch leaderboard.txt");             // Create leaderboard.txt if it does not exist
     ofstream fout;
-    fout.open("leaderboard.txt", ios::app);
+    fout.open("leaderboard.txt", ios::app);                                 // Open leaderboard.txt
     if (fout.fail()) {
         clear();
         mvaddstr(0, 0, "Cannot open leaderboard.txt");
     } else {
         fout << fixed << setprecision(2);
-        fout << player_name << " " << seconds << endl;
+        fout << player_name << " " << seconds << endl;                      // Append latest player and score
         fout.close();
-        system("sort leaderboard.txt -o leaderboard.txt");
-        system("sort -t ' ' -k 1,1 -u leaderboard.txt -o leaderboard.txt");
-        system("sort -t ' ' -k 2,2 -n leaderboard.txt -o leaderboard.txt");
+        system("sort leaderboard.txt -o leaderboard.txt");                  // Sort leaderboard by name and then by score
+        system("sort -t ' ' -k 1,1 -u leaderboard.txt -o leaderboard.txt"); // Remove entries with duplicate names, leaving unique name entries and their best scores
+        system("sort -t ' ' -k 2,2 -n leaderboard.txt -o leaderboard.txt"); // Sort leaderboard by score
     }
 }
 
-string get_player_name() {
+string get_player_name() { // Returns the player's name by capturing input
     string player_name = "";
     int keypress = getch();
     while (keypress != 10) {
@@ -30,10 +29,12 @@ string get_player_name() {
             case KEY_BACKSPACE:
                 if (player_name.length()==0) {break;}
                 else {player_name.pop_back();}
+                break;
             default:
                 if (isalnum(keypress)) {
                     player_name.push_back(keypress);
                 }
+                break;
         }
         keypress = getch();
     }
@@ -44,18 +45,18 @@ string get_player_name() {
 void w(double seconds) {
     clear();
     string str = "You win!";
-    mvaddwstr(NUM_ROWS/2, NUM_COLS/2-4, wstring(str.begin(), str.end()).c_str());
+    mvaddstr(NUM_ROWS/2, NUM_COLS/2-4, str.c_str());
     refresh();
-    this_thread::sleep_for(chrono::milliseconds(2000));
+    this_thread::sleep_for(chrono::milliseconds(2000));      // Pause a couple of seconds to let that sink in
     clear();
-    string message = "You have eliminated the invaders in ";
+    string message = "You have eliminated the invaders in "; // Report game duration
     message += to_string(seconds);
     message += " seconds!";
     mvaddstr(NUM_ROWS/2-1, 0, message.c_str());
     mvaddstr(NUM_ROWS/2+1, 0, "Enter your name: ");
-    move(NUM_ROWS/2+1, 17);
-    curs_set(1);
-    echo();
+    move(NUM_ROWS/2+1, 17); // Move cursor to appropriate position for player to input name
+    curs_set(1);            // Re-enable cursor
+    echo();                 // So player can see what they're typing
     refresh();
     string player_name = get_player_name();
     update_leaderboard(player_name, seconds);
@@ -70,6 +71,7 @@ void l() {
 }
 
 void greet() {
+    // Prints an ASCII art and game rules
     clear();
     int y = NUM_ROWS/2-6;
     mvaddstr(y, 0, " __  .__   __. ____    ____  ___       _______   _______ .______          _______.");
@@ -104,19 +106,20 @@ Level cursor_to_level(int y, int cursor_at_level) {
     } else if (cursor_at_level==y+3) {
         return Level::extreme;
     }
+    return Level::easy;
 }
 
 Level choose_difficulty() {
     clear();
-    int y = NUM_ROWS/2-2;
-    Level level = Level::easy;
-    int cursor_at_level = y;
+    int y = NUM_ROWS/2-2;           // Make sure it's vertically centered
+    Level level = Level::easy;      // Default level is easy
+    int cursor_at_level = y;        // Tracks the >  < cursor 
     present_options(y);
-    mvaddstr(y, NUM_COLS/2-5, ">");
+    mvaddstr(y, NUM_COLS/2-5, ">"); 
     mvaddstr(y, NUM_COLS/2+5, "<");
     refresh();
     int keypress = getch();
-    if (keypress=='t') {return Level::test;}
+    if (keypress=='t') {return Level::test;} // Secret test level for development purposes
     while (keypress != 10) {
         switch (keypress) {
             case KEY_UP:
@@ -151,7 +154,7 @@ Level choose_difficulty() {
                         break;
                 }
                 break;
-            case 10:
+            case 10:          // 10 is the key code for enter (KEY_ENTER is only for numpad enter)
                 return level;
             default:
                 break;
