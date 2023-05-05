@@ -31,7 +31,7 @@ string get_player_name() { // Returns the player's name by capturing input
                 else {player_name.pop_back();}
                 break;
             default:
-                if (isalnum(keypress)) {
+                if (isalnum(keypress)) {             // Spaces are ignored because they will be delimiters of the columns in the file
                     player_name.push_back(keypress);
                 }
                 break;
@@ -64,8 +64,8 @@ void w(double seconds, string level_string) {
 
 void l() {
     clear();
-    string str = "You lose";
-    mvaddwstr(NUM_ROWS/2, NUM_COLS/2-4, wstring(str.begin(), str.end()).c_str());
+    string str = "Your starship is destroyed!";
+    mvaddwstr(NUM_ROWS/2, NUM_COLS/2-13, wstring(str.begin(), str.end()).c_str());
     refresh();
     this_thread::sleep_for(chrono::milliseconds(2000));
 }

@@ -119,8 +119,12 @@ int main() {
         }
         if (invaders.are_all_dead() || millis()-invaders_time_now >= invaders_update_duration) {   // Check whether it is time to update the invaders again
             update_invaders(invaders);
-            if (invaders_update_duration-250 >= 500 && invaders.rows_descended > rows_descended) { // If invaders descended a row, increase speed, min update duration 250ms
-                invaders_update_duration -= 250;
+            if (invaders.rows_descended > rows_descended) {                                        // If invaders descended a row, increase speed, min update duration 500ms
+                if (level!=Level::extreme && invaders_update_duration-250 >= 500) {
+                    invaders_update_duration -= 250;
+                } else if (level==Level::extreme && invaders_update_duration-250 >= 250) {         // In extreme mode, maximum speed of invaders is increased by 2
+                    invaders_update_duration -= 250;
+                }
                 rows_descended = invaders.rows_descended;
             }
             invaders_time_now = millis();                                                          // Invaders: reset mark time
