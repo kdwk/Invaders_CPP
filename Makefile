@@ -1,10 +1,10 @@
 FLAGS = -pedantic-errors -std=c++11
 
 lib.o: lib.cpp lib.h
-	g++ -c lib.cpp -lncursesw
+	g++ -c lib.cpp -lncurses
 
 frame.o: frame.cpp frame.h
-	g++ -c frame.cpp -lncursesw
+	g++ -c frame.cpp -lncurses
 
 invader.o: invader.cpp invader.h
 	g++ -c invader.cpp
@@ -16,10 +16,10 @@ player.o: player.cpp player.h
 	g++ -c player.cpp
 
 invaders.o: main.cpp
-	g++ -c main.cpp -lncursesw
+	g++ -c main.cpp -lncurses
 
 invaders: frame.o invader.o player.o shot.o lib.o main.o
-	g++ frame.o invader.o player.o shot.o lib.o main.o -o invaders -lncursesw
+	g++ frame.o invader.o player.o shot.o lib.o main.o -o invaders -lncurses
 
 clean:
 	rm -f invaders *.o

@@ -65,7 +65,7 @@ void w(double seconds, string level_string) {
 void l() {
     clear();
     string str = "Your starship is destroyed!";
-    mvaddwstr(NUM_ROWS/2, NUM_COLS/2-13, wstring(str.begin(), str.end()).c_str());
+    mvaddstr(NUM_ROWS/2, NUM_COLS/2-13, str.c_str());
     refresh();
     this_thread::sleep_for(chrono::milliseconds(2000));
 }
