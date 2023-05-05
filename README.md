@@ -27,16 +27,18 @@ In this game, you must control a starship to shoot down a horde of invaders that
 ![Screenshot from 2023-05-05 15-47-12](https://user-images.githubusercontent.com/39268094/236403354-5a9a9029-d3e7-45d2-a622-db0be2490ebf.png)
 
 3. Keyboard controls
-  3.1 Left/ right to control the starship
-  3.2 Space to shoot
-  3.3 P to pause, any key to resume, Q to quit
+
+    3.1 Left/ right to control the starship
+  
+    3.2 Space to shoot
+  
+    3.3 P to pause, any key to resume, Q to quit
 
 4. Leaderboard to record who can eliminate the invaders quickest
 
 ![Screenshot from 2023-05-05 15-55-15](https://user-images.githubusercontent.com/39268094/236404770-15b3c6ce-e990-40ff-942e-641b5c47f8f9.png)
 
 ## Technical features
-
 1. Generation of random game sets or events: the initial positions of each invader is randomly generated within an area.
 2. Data structures for storing game status: the program makes use of various enums, structs and classes to store the states of objects like invaders and player as well as global game status like level of difficulty, pause, continue, win and lose. The code then dynamically responds to changes in these statuses.
 3. Dynamic memory management: the program makes heavy use of STL containers like vectors to store lists of items, including a list of shots for a player and a list of invaders for an army
@@ -46,3 +48,14 @@ In this game, you must control a starship to shoot down a horde of invaders that
 7. The ncurses library is used for rendering, screen manipulation and input. This presents multiple advantages: there is no flicker due to the buffer-flushing mechanism (the screen is not updated until refresh() is called), the screen can be manipulated with a coordinate system, and non-blocking input can be achieved by setting a timeout on get character operations. Besides, the cursor can be hidden and shown wherever appropriate
 8. Timers are achieved by comparing UNIX timestamps. This bypasses the trouble of compensating for putting the thread to sleep
 
+## Non-standard libraries
+This program uses <bits/stdc++.h> for convenience. Users must use g++ for compilation.
+This program uses <ncurses.h>. The program is linked to ncursesw at compilation. The package libncurses6 (Debian and derivatives) or ncurses-lib must be installed, as is the case on HKU CS Academy servers by default. If not using the HKU CS Academy servers, I recommend running the latest release of Ubuntu or Fedora in Windows Subsystem for Linux or a Podman/ Docker container. Both operating systems install the package by default.
+
+## Compilation instructions
+1. `git clone https://github.com/kdwk/Invaders_CPP.git`
+2. `cd Invaders_CPP`
+(You can either use the pre-compiled binary or following the steps below to compile your own)
+3. `make clean`
+4. `make invaders`
+5. `./invaders` to execute the binary
