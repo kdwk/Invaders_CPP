@@ -1,4 +1,4 @@
-# Invaders_CPP
+# Invaders_CPP 
 A terminal mini-game where you have to shoot down a horde of invaders with your starship.
 
 ![Screenshot from 2023-05-05 15-24-36](https://user-images.githubusercontent.com/39268094/236399174-e76186be-286a-45a0-a561-bc8b2c0a3fa3.png)
@@ -47,15 +47,17 @@ In this game, you must control a starship to shoot down a horde of invaders that
 6. A Frame class is used for all drawable classes to perform client-side drawing on. The player, shot and invader objects gets passed a reference to a frame, which they then draw themselves on. The frame is then rendered on screen as a whole, instead of each object manipulating the screen directly or a central function printing everything onto the screen.
 7. The ncurses library is used for rendering, screen manipulation and input. This presents multiple advantages: there is no flicker due to the buffer-flushing mechanism (the screen is not updated until refresh() is called), the screen can be manipulated with a coordinate system, and non-blocking input can be achieved by setting a timeout on get character operations. Besides, the cursor can be hidden and shown wherever appropriate
 8. Timers are achieved by comparing UNIX timestamps. This bypasses the trouble of compensating for putting the thread to sleep
+9. A secret test mode for developmental purposes
 
 ## Non-standard libraries
 This program uses <bits/stdc++.h> for convenience. Users must use g++ for compilation.
+
 This program uses <ncurses.h>. The program is linked to ncursesw at compilation. The package libncurses6 (Debian and derivatives) or ncurses-lib must be installed, as is the case on HKU CS Academy servers by default. If not using the HKU CS Academy servers, I recommend running the latest release of Ubuntu or Fedora in Windows Subsystem for Linux or a Podman/ Docker container. Both operating systems install the package by default.
 
 ## Compilation instructions
 1. `git clone https://github.com/kdwk/Invaders_CPP.git`
 2. `cd Invaders_CPP`
-(You can either use the pre-compiled binary or following the steps below to compile your own)
+(You can either use the pre-compiled binary or follow the steps below to compile your own)
 3. `make clean`
 4. `make invaders`
 5. `./invaders` to execute the binary
