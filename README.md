@@ -34,7 +34,7 @@ In this game, you must control a starship to shoot down a horde of invaders that
   
     3.3 P to pause, any key to resume, Q to quit
 
-4. Leaderboard to record who can eliminate the invaders quickest
+4. Leaderboard to record who can eliminate the invaders quickest. To use the leaderboard, leaderboard.txt must be placed in the working directory
 
 ![Screenshot from 2023-05-05 15-55-15](https://user-images.githubusercontent.com/39268094/236404770-15b3c6ce-e990-40ff-942e-641b5c47f8f9.png)
 
