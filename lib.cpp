@@ -90,10 +90,22 @@ void greet() {
 }
 
 void present_options(int y) {
-    mvaddstr(y, NUM_COLS/2-2, "Easy");
-    mvaddstr(y+1, NUM_COLS/2-3, "Medium");
-    mvaddstr(y+2, NUM_COLS/2-2, "Hard");
-    mvaddstr(y+3, NUM_COLS/2-3, "Extreme");
+    // Add a border around the frame
+    string top_and_bottom = "+";
+    for (int i=0; i<NUM_COLS; i++) {
+        top_and_bottom.push_back('-');
+    }
+    top_and_bottom.push_back('+');
+    mvaddstr(0, 0, top_and_bottom.c_str());
+    for (int iter_row=1; iter_row<NUM_ROWS+1; iter_row++) {
+        mvaddstr(iter_row, 0, "|");
+        mvaddstr(iter_row, NUM_COLS+1, "|");
+    }
+    mvaddstr(NUM_ROWS+1, 0, top_and_bottom.c_str());
+    mvaddstr(y, NUM_COLS/2-2+1, "Easy");
+    mvaddstr(y+1, NUM_COLS/2-3+1, "Medium");
+    mvaddstr(y+2, NUM_COLS/2-2+1, "Hard");
+    mvaddstr(y+3, NUM_COLS/2-3+1, "Extreme");
 }
 
 Level cursor_to_level(int y, int cursor_at_level) {
@@ -115,8 +127,8 @@ Level choose_difficulty() {
     Level level = Level::easy;      // Default level is easy
     int cursor_at_level = y;        // Tracks the >  < cursor 
     present_options(y);
-    mvaddstr(y, NUM_COLS/2-5, ">"); 
-    mvaddstr(y, NUM_COLS/2+5, "<");
+    mvaddstr(y, NUM_COLS/2-5+1, ">");
+    mvaddstr(y, NUM_COLS/2+5+1, "<");
     refresh();
     int keypress = getch();
     if (keypress=='t') {return Level::test;} // Secret test level for development purposes
@@ -128,10 +140,10 @@ Level choose_difficulty() {
                         break;
                     default:
                         present_options(y);
-                        mvaddstr(cursor_at_level, NUM_COLS/2-5, " ");
-                        mvaddstr(cursor_at_level, NUM_COLS/2+5, " ");
-                        mvaddstr(cursor_at_level-1, NUM_COLS/2-5, ">");
-                        mvaddstr(cursor_at_level-1, NUM_COLS/2+5, "<");
+                        mvaddstr(cursor_at_level, NUM_COLS/2-5+1, " ");
+                        mvaddstr(cursor_at_level, NUM_COLS/2+5+1, " ");
+                        mvaddstr(cursor_at_level-1, NUM_COLS/2-5+1, ">");
+                        mvaddstr(cursor_at_level-1, NUM_COLS/2+5+1, "<");
                         cursor_at_level -= 1;
                         level = cursor_to_level(y, cursor_at_level);
                         refresh();
@@ -144,10 +156,10 @@ Level choose_difficulty() {
                         break;
                     default:
                         present_options(y);
-                        mvaddstr(cursor_at_level, NUM_COLS/2-5, " ");
-                        mvaddstr(cursor_at_level, NUM_COLS/2+5, " ");
-                        mvaddstr(cursor_at_level+1, NUM_COLS/2-5, ">");
-                        mvaddstr(cursor_at_level+1, NUM_COLS/2+5, "<");
+                        mvaddstr(cursor_at_level, NUM_COLS/2-5+1, " ");
+                        mvaddstr(cursor_at_level, NUM_COLS/2+5+1, " ");
+                        mvaddstr(cursor_at_level+1, NUM_COLS/2-5+1, ">");
+                        mvaddstr(cursor_at_level+1, NUM_COLS/2+5+1, "<");
                         cursor_at_level += 1;
                         level = cursor_to_level(y, cursor_at_level);
                         refresh();
