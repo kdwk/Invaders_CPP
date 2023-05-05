@@ -124,6 +124,8 @@ int main() {
         case Status::win:
             w(game_duration_seconds);
             break;
+        default:
+            break;
     }
     curs_set(1); // Show cursor
     endwin();    // Leave alternate screen mode
