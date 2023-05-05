@@ -65,13 +65,6 @@ Army::Army(int NUM_INVADERS) {
 Status Army::update() {
     if (are_all_dead()) {return Status::win;}  // If army all dead, trigger win
     vector<int> dead_invaders = {};
-    /*
-    for (int i=0; i<army.size(); i++) {
-        if (army[i].stat == Health::dead) {
-            dead_invaders.push_back(i);
-        }
-    }
-    */
     for (int index: dead_invaders) {
         army.erase(army.begin()+index);
     }
@@ -110,8 +103,8 @@ Status Army::update() {
             }
         }
         rows_descended += 1;
-        if (reached_bottom()) {return Status::lose;}
-        if (prev_vec == Direction::left) {
+        if (reached_bottom()) {return Status::lose;} // Invaders have reached the starship
+        if (prev_vec == Direction::left) {           // Switch directions after going down
             prev_vec = vec;
             vec = Direction::right;
         }
