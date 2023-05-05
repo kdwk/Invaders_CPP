@@ -64,6 +64,62 @@ Army::Army(int NUM_INVADERS) {
 
 Status Army::update() {
     if (are_all_dead()) {return Status::win;}  // If army all dead, trigger win
+    vector<int> dead_invaders = {};
+    /*
+    for (int i=0; i<army.size(); i++) {
+        if (army[i].stat == Health::dead) {
+            dead_invaders.push_back(i);
+        }
+    }
+    */
+    for (int index: dead_invaders) {
+        army.erase(army.begin()+index);
+    }
+    if (vec == Direction::left) {
+        // Move to the left by one
+        // If to the left wall set next move as down
+        for (Invader &invader: army) {
+            if (invader.x-1 >= 0 && invader.stat==Health::alive) {
+                invader.x -= 1;
+            }
+        }
+        if (reached_left_wall()) {
+            prev_vec = vec;
+            vec = Direction::down;
+        }
+    } else if (vec == Direction::right) {
+        // Move to the right by one
+        // If to the right wall set next move as down
+        for (Invader &invader: army) {
+            if (invader.x+1 <= NUM_COLS-1 && invader.stat==Health::alive) {
+                invader.x += 1;
+            }
+        }
+        if (reached_right_wall()) {
+            prev_vec = vec;
+            vec = Direction::down;
+        }
+    } else if (vec == Direction::down) {
+        // Move down by one
+        // If at left wall set next move as right
+        // If at right wall set next move as left
+        // If reached the bottom, trigger lose
+        for (Invader &invader: army) {
+            if (invader.stat == Health::alive) {
+                invader.y += 1;
+            }
+        }
+        rows_descended += 1;
+        if (reached_bottom()) {return Status::lose;}
+        if (prev_vec == Direction::left) {
+            prev_vec = vec;
+            vec = Direction::right;
+        }
+        else if (prev_vec == Direction::right) {
+            prev_vec = vec;
+            vec = Direction::left;
+        }
+    }
     switch (sym) {                             // Change symbol of the army
         case Symbol::plus:
             sym = Symbol::cross;
@@ -71,27 +127,6 @@ Status Army::update() {
         case Symbol::cross:
             sym = Symbol::plus;
             break;
-    }
-    if (vec == Direction::left) {
-        // Move to the left by one
-        // If to the left wall set next move as down
-        for (Invader &invader: army) {invader.x -= 1;}
-        if (reached_left_wall()) {vec = Direction::down;}
-    } else if (vec == Direction::right) {
-        // Move to the right by one
-        // If to the right wall set next move as down
-        for (Invader &invader: army) {invader.x += 1;}
-        if (reached_right_wall()) {vec = Direction::down;}
-    } else if (vec == Direction::down) {
-        // Move down by one
-        // If at left wall set next move as right
-        // If at right wall set next move as left
-        // If reached the bottom, trigger lose
-        for (Invader &invader: army) {invader.y += 1;}
-        rows_descended += 1;
-        if (reached_bottom()) {return Status::lose;}
-        if (reached_left_wall()) {vec = Direction::right;}
-        else if (reached_right_wall()) {vec = Direction::left;}
     }
     if (reached_bottom()) {return Status::lose;}
     return Status::cont;

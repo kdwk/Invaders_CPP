@@ -26,6 +26,7 @@ enum Direction {   // An army can travel in any of these directions
 
 class Army : public Drawable{
     Direction vec;                 // Current direction of the army
+    Direction prev_vec;
     Symbol sym;                    // Current symbol of the army
     bool reached_bottom();
     bool reached_left_wall();
@@ -35,7 +36,7 @@ class Army : public Drawable{
         std::vector<Invader> army; // An army is a vector of invaders
         Army(int NUM_INVADERS);    // Initialize an army
         bool are_all_dead();
-        Status update();           // Update the army, returns a game statuss
+        Status update();           // Update the army, returns a game status
         void draw(Frame &f);       // Draw the whole army to the frame
 };
 
