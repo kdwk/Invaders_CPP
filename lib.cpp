@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void update_leaderboard(string player_name, double seconds) {
+void update_leaderboard(string player_name, double seconds, string level_string) {
     system("test -f leaderboard.txt || touch leaderboard.txt");             // Create leaderboard.txt if it does not exist
     ofstream fout;
     fout.open("leaderboard.txt", ios::app);                                 // Open leaderboard.txt
@@ -13,7 +13,7 @@ void update_leaderboard(string player_name, double seconds) {
         mvaddstr(0, 0, "Cannot open leaderboard.txt");
     } else {
         fout << fixed << setprecision(2);
-        fout << player_name << " " << seconds << endl;                      // Append latest player and score
+        fout << player_name << " " << seconds << " " << level_string << endl; // Append latest player and score
         fout.close();
         system("sort leaderboard.txt -o leaderboard.txt");                  // Sort leaderboard by name and then by score
         system("sort -t ' ' -k 1,1 -u leaderboard.txt -o leaderboard.txt"); // Remove entries with duplicate names, leaving unique name entries and their best scores
@@ -42,7 +42,7 @@ string get_player_name() { // Returns the player's name by capturing input
     return player_name;
 }
 
-void w(double seconds) {
+void w(double seconds, string level_string) {
     clear();
     string str = "You win!";
     mvaddstr(NUM_ROWS/2, NUM_COLS/2-4, str.c_str());
@@ -59,7 +59,7 @@ void w(double seconds) {
     echo();                 // So player can see what they're typing
     refresh();
     string player_name = get_player_name();
-    update_leaderboard(player_name, seconds);
+    update_leaderboard(player_name, seconds, level_string);
 };
 
 void l() {

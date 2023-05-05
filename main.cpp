@@ -27,14 +27,16 @@ void update_level_info(Level level) {
     // Set number of invaders and invader speed according to level selected
     switch (level) {
         case Level::easy:
+            NUM_INVADERS = 50;
+            INITIAL_INVADER_SPEED = 2500;
             break;
         case Level::medium:
             NUM_INVADERS = 70;
             INITIAL_INVADER_SPEED = 1500;
             break;
         case Level::hard:
-            NUM_INVADERS = 100;
-            INITIAL_INVADER_SPEED = 600;
+            NUM_INVADERS = 90;
+            INITIAL_INVADER_SPEED = 1000;
             break;
         case Level::extreme:
             NUM_INVADERS = 140;
@@ -43,6 +45,26 @@ void update_level_info(Level level) {
         case Level::test:
             NUM_INVADERS = 1;
             INITIAL_INVADER_SPEED = 10000;
+            break;
+    }
+}
+
+string level_to_string(Level level) {
+    switch (level) {
+        case Level::easy:
+            return "(easy)";
+            break;
+        case Level::medium:
+            return "(medium)";
+            break;
+        case Level::hard:
+            return "(hard)";
+            break;
+        case Level::extreme:
+            return "(extreme)";
+            break;
+        default:
+            return "";
             break;
     }
 }
@@ -56,7 +78,8 @@ int main() {
     noecho();                      // Typed letters will not be shown on screen
     start_color();                 // Allows usage of colours
     greet();                       // Shows greeting
-    update_level_info(choose_difficulty());
+    Level level = choose_difficulty();
+    update_level_info(level);
     timeout(5);                    // 5 millisecond timeout for get character so it doesn't block the program
     clear();                       // Clear screen, enter alternate screen mode
     Army invaders(NUM_INVADERS);
@@ -122,7 +145,7 @@ int main() {
             l();
             break;
         case Status::win:
-            w(game_duration_seconds);
+            w(game_duration_seconds, level_to_string(level));
             break;
         default:
             break;

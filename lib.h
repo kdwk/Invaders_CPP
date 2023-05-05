@@ -32,8 +32,8 @@ enum Level {                         // An enum to represent game difficulty lev
     extreme
 };
 
-void w(double seconds);              // What to do if the player wins
-void l();                            // What to do if the player loses
+void w(double seconds, std::string level);       // What to do if the player wins
+void l();                                        // What to do if the player loses
 
 void greet();                        // Greet the player when the game starts
 Level choose_difficulty();           // Choose the difficulty of the game
