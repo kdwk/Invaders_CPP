@@ -17,3 +17,8 @@ jobs:
       run: make clean
     - name: make
       run: make invaders
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v3
+      with:
+        name: invaders
+        path: invaders
