@@ -36,7 +36,7 @@ In this game, you must control a starship to shoot down a horde of invaders that
 
 4. Leaderboard to record who can eliminate the invaders quickest. To use the leaderboard, leaderboard.txt must be placed in the working directory
 
-![Screenshot from 2023-05-05 15-55-15](https://user-images.githubusercontent.com/39268094/236404770-15b3c6ce-e990-40ff-942e-641b5c47f8f9.png)
+![Screenshot from 2023-05-06 11-11-05](https://user-images.githubusercontent.com/39268094/236595690-cbabd982-ed89-44d0-b05b-133aff6f87fd.png)
 
 ## Technical features
 1. Generation of random game sets or events: the initial positions of each invader is randomly generated within an area.
