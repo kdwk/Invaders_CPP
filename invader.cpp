@@ -48,12 +48,13 @@ bool Army::reached_right_wall() {
 }
 
 Army::Army(int NUM_INVADERS) {
+    srand(time(NULL));
     for (int y=1; y<9; y++) {
         for (int x=1; x<NUM_COLS-2; x++) {
             if (army.size() >= NUM_INVADERS) {break;} // If army size is already at maximum, don't add new invaders
             int decision = rand()%2;                  // Randomly decide if there should be an invader here at this coordinate
             if (decision) {
-                army.push_back(Invader{x,y,alive});   // Add an invader to the army
+                army.push_back(Invader{x,y,Health::alive});   // Add an invader to the army
             }
         }
     }
