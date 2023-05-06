@@ -55,9 +55,10 @@ This program uses <bits/stdc++.h> for convenience. Users must use g++ for compil
 This program uses <ncurses.h>. The program is linked to ncursesw at compilation. The package libncurses6 (Debian and derivatives) or ncurses-lib must be installed, as is the case on HKU CS Academy servers by default. If not using the HKU CS Academy servers, I recommend running the latest release of Ubuntu or Fedora in Windows Subsystem for Linux or a Podman/ Docker container. Both operating systems install the package by default.
 
 ## Compilation instructions
+You can use the pre-built binaries in GitHub Actions -> most recent workflow run -> 'invaders' artifact, or compile with the following instructions:
+
 1. `git clone https://github.com/kdwk/Invaders_CPP.git`
 2. `cd Invaders_CPP`
-(You can either use the pre-compiled binary or follow the steps below to compile your own)
 3. `make clean`
 4. `make invaders`
 5. `./invaders` to execute the binary
