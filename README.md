@@ -49,7 +49,7 @@ In this game, you must control a starship to shoot down a horde of invaders that
 ## Non-standard libraries
 This program uses <bits/stdc++.h> for convenience. Users must use g++ for compilation.
 
-This program uses <ncurses.h>. The program is linked to ncurses at compilation. The package libncurses6 (Debian and derivatives) or ncurses-lib must be installed, as is the case on HKU CS Academy servers by default. If not using the HKU CS Academy servers, I recommend running the latest release of Ubuntu or Fedora in Windows Subsystem for Linux or a Podman/ Docker container. The package is installed by default on both operating systems.
+This program uses <ncurses.h>. The program is linked to ncurses at compilation. The package libncurses6 (Debian and derivatives) or ncurses-lib must be installed. It is recommended to run the latest release of Ubuntu or Fedora in Windows Subsystem for Linux or a Podman/ Docker container. The package is installed by default on both operating systems.
 
 ## Compilation instructions
 You can use the pre-built binaries in GitHub Actions -> most recent workflow run -> 'invaders' artifact. You can also compile with the following instructions:
