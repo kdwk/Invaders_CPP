@@ -2,7 +2,7 @@
 #define SHOTS
 // This header declares the Shot class
 
-#include <bits/stdc++.h>
+#include "stdcpp.h"
 #include "drawable_parent.h"
 #include "lib.h"
 #include "frame.h"

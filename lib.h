@@ -2,7 +2,7 @@
 #define INVADER_CONST
 // This header contains multiple constants, enums and functions used throughout the game
 
-#include <bits/stdc++.h>
+#include "stdcpp.h"
 
 const int NUM_COLS = 30;             // Number of columns of the game area
 const int NUM_ROWS = 25;             // Number of rows of the game area

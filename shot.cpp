@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include "stdcpp.h"
 #include "shot.h"
 #include "lib.h"
 #include "frame.h"

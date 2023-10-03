@@ -2,7 +2,7 @@
 #define PLAYER
 // This header declares the Player class
 
-#include <bits/stdc++.h>
+#include "stdcpp.h"
 #include "drawable_parent.h"
 #include "shot.h"
 #include "invader.h"

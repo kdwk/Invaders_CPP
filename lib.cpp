@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include "stdcpp.h"
 #include <ncurses.h>
 #include "lib.h"
 

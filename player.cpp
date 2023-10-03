@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include "stdcpp.h"
 #include "player.h"
 #include "lib.h"
 #include "invader.h"

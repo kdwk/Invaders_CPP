@@ -2,7 +2,7 @@
 #define FRAME
 // This header declares the Frame class
 
-#include <bits/stdc++.h>
+#include "stdcpp.h"
 
 class Frame {
     void composite(int score, int NUM_INVADERS);       // Add game score below the bottom of frame

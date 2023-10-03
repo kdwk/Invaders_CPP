@@ -2,7 +2,7 @@
 #define INVADER
 // This header declares the Army class and related enums
 
-#include <bits/stdc++.h>
+#include "stdcpp.h"
 #include "lib.h"
 #include "frame.h"
 #include "drawable_parent.h"
